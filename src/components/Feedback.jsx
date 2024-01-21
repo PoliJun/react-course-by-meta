@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Feedback = (props) => {
+const Feedback = (props/* ={...props, onSubmit:function(){null}} */) => {
   const [score, setScore] = useState('10');
   const [comment, setComment] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.onSubmit(event);
+    if (props.onSubmit) props.onSubmit(event);
+
     if (Number(score) < 5 && comment.length < 10) {
       alert('Please provide detailed feedback');
     } else {
@@ -47,6 +48,7 @@ const Feedback = (props) => {
   );
 };
 
-Feedback.propTypes = {onSubmit: PropTypes.func.isRequired};
+Feedback.propTypes = {
+  onSubmit: PropTypes.func}
 
 export default Feedback;
